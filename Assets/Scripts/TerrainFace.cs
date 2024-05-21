@@ -9,12 +9,14 @@ public class TerrainFace
     Vector3 localUp;
     Vector3 axisA;
     Vector3 axisB;
+    ShapeGenerator shapeGenerator;
 
-    public TerrainFace(Mesh mesh, int meshResolution, Vector3 localUp)
+    public TerrainFace(Mesh mesh, int meshResolution, Vector3 localUp, ShapeGenerator shapeGenerator)
     {
         this.mesh = mesh;
         this.meshResolution = meshResolution;
         this.localUp = localUp;
+        this.shapeGenerator = shapeGenerator;
 
         axisA = new Vector3(localUp.y, localUp.z, localUp.x);
         axisB = Vector3.Cross(localUp, axisA);
@@ -33,7 +35,8 @@ public class TerrainFace
             {
                 Vector2 progressPercent = new Vector2(x, y) / (meshResolution - 1);
                 Vector3 pointOnUnitCube = localUp + (progressPercent.x - 0.5f) * 2 * axisA + (progressPercent.y - 0.5f) * 2 * axisB;
-                verticies[i] = pointOnUnitCube;
+                Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
+                verticies[i] = shapeGenerator.CalcPointOnPlanet(pointOnUnitSphere);
 
                 if (x != meshResolution - 1 && y != meshResolution -1)
                 {
