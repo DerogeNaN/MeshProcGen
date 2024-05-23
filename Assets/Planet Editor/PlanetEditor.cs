@@ -7,24 +7,34 @@ using UnityEditor;
 public class PlanetEditor : Editor
 {
     Planet planet;
+    Editor shapeEditor;
+    Editor colourEditor;
 
     private void OnEnable()
     {
         planet = (Planet)target;
     }
 
-    void DrawSettingsEditor(Object settings, System.Action onSettingsUpdated)
+    void DrawSettingsEditor(Object settings, System.Action onSettingsUpdated, ref bool dropDown, ref Editor curEditor)
     {
-        using (var check = new EditorGUI.ChangeCheckScope())
+        if(settings != null)
         {
-            Editor editor = CreateEditor(settings);
-            editor.OnInspectorGUI();
+            dropDown = EditorGUILayout.InspectorTitlebar(dropDown, settings);
 
-            if (check.changed)
+            using (var check = new EditorGUI.ChangeCheckScope())
             {
-                if (onSettingsUpdated != null)
+                if (dropDown)
                 {
-                    onSettingsUpdated();
+                    CreateCachedEditor(settings, null, ref curEditor);
+                    curEditor.OnInspectorGUI();
+
+                    if (check.changed)
+                    {
+                        if (onSettingsUpdated != null)
+                        {
+                            onSettingsUpdated();
+                        }
+                    }
                 }
             }
         }
@@ -32,9 +42,21 @@ public class PlanetEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        using (var check = new EditorGUI.ChangeCheckScope())
+        {
+            base.OnInspectorGUI();
+            if (check.changed)
+            {
+                planet.GeneratePlanet();
+            }
+        }
 
-        DrawSettingsEditor(planet.colourSettings, planet.OnColourUpdate);
-        DrawSettingsEditor(planet.shapeSettings, planet.OnShapeUpdate);
+        if (GUILayout.Button("Generate!"))
+        {
+            planet.GeneratePlanet();
+        }
+            
+        DrawSettingsEditor(planet.colourSettings, planet.OnColourUpdate, ref planet.colourSettingsDropDown, ref colourEditor);
+        DrawSettingsEditor(planet.shapeSettings, planet.OnShapeUpdate, ref planet.shapeSettingsDropDown, ref shapeEditor);
     }
 }

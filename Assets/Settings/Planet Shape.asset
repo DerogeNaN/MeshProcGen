@@ -13,3 +13,24 @@ MonoBehaviour:
   m_Name: Planet Shape
   m_EditorClassIdentifier: 
   planetRadious: 1
+  noiseLayers:
+  - enabled: 1
+    firstLayerShouldMask: 0
+    noiseSettings:
+      strength: 0.1
+      roughness: 2.5
+      baseRoughness: 1
+      persistance: 0.5
+      minValue: 1.1
+      noiseLayers: 4
+      origin: {x: 1.23, y: 0, z: 0}
+  - enabled: 0
+    firstLayerShouldMask: 0
+    noiseSettings:
+      strength: 0
+      roughness: 2.5
+      baseRoughness: 1.15
+      persistance: 0.5
+      minValue: 1.3
+      noiseLayers: 6
+      origin: {x: 0, y: 0, z: 0}

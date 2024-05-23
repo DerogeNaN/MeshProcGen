@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
+    public bool autoUpdate = true;
+
     [Range(2, 256)] 
     public int resolution = 10;
 
@@ -14,6 +16,9 @@ public class Planet : MonoBehaviour
 
     public ShapeSettings shapeSettings;
     public ColourSettings colourSettings;
+
+    [HideInInspector] public bool shapeSettingsDropDown;
+    [HideInInspector] public bool colourSettingsDropDown;
 
     private void BuildMesh()
     {
@@ -35,8 +40,8 @@ public class Planet : MonoBehaviour
         {
             meshFilters = new MeshFilter[6];    
         }
-        terrainFaces = new TerrainFace[6];
 
+        terrainFaces = new TerrainFace[6];
         Vector3[] directions = { Vector3.up, Vector3.down, Vector3.left, Vector3.right, Vector3.forward, Vector3.back };
 
         for (int i = 0; i < 6; i++)
@@ -54,6 +59,7 @@ public class Planet : MonoBehaviour
                 meshFilters[i] = meshObj.AddComponent<MeshFilter>();
                 meshFilters[i].sharedMesh = new Mesh();
             }
+
             terrainFaces[i] = new TerrainFace(meshFilters[i].sharedMesh, resolution, directions[i], shapeGenerator);
         }
     }
@@ -67,14 +73,20 @@ public class Planet : MonoBehaviour
 
     public void OnShapeUpdate()
     {
-        Initialize();
-        GenerateMesh();
+        if (autoUpdate)
+        {
+            Initialize();
+            GenerateMesh();
+        }
     }
 
     public void OnColourUpdate()
     {
-        Initialize();
-        GenerateColours();
+        if (autoUpdate)
+        {
+            Initialize();
+            GenerateColours();
+        }
     }
 
     void GenerateMesh()
