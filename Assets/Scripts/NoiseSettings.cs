@@ -5,6 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class NoiseSettings
 {
+    public enum NoiseType
+    {
+        Simple,
+        Inverse
+    }
+    public NoiseType noiseType;
+    
     public float strength = 1;
     public float roughness = 1;
     public float baseRoughness = 1;
