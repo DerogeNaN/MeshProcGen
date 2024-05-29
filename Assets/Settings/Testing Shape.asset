@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488a7daebb6b83d4e9d0b6300e94b1af, type: 3}
+  m_Name: Testing Shape
+  m_EditorClassIdentifier: 
+  planetRadius: 1
+  noiseLayers:
+  - enabled: 1
+    firstLayerShouldMask: 0
+    noiseSettings:
+      noiseType: 0
+      strength: 1
+      roughness: 0
+      baseRoughness: 1
+      persistance: 0
+      minValue: 0
+      noiseLayers: 1
+      origin: {x: 0, y: 0, z: 0}

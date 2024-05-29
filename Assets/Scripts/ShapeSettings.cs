@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ShapeSettings : ScriptableObject
 {
-    public float planetRadious = 1.0f;
+    public float planetRadius = 1.0f;
     public NoiseLayer[] noiseLayers;
 
     [System.Serializable]

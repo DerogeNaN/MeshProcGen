@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShapeGenerator
 {
-    ShapeSettings shapeSettings;
+    public ShapeSettings shapeSettings;
     AbstractNoiseFilter[] noiseFilters;
     public ShapeGenerator(ShapeSettings shapeSettings)
     {
@@ -32,6 +32,6 @@ public class ShapeGenerator
             float mask = (shapeSettings.noiseLayers[i].firstLayerShouldMask) ? firstLayerValue : 1;
             if (shapeSettings.noiseLayers[i].enabled) elevation += noiseFilters[i].Evaluate(pointOnUnitSphere) * mask;
         }
-        return pointOnUnitSphere * shapeSettings.planetRadious * (1 + elevation);
+        return pointOnUnitSphere * shapeSettings.planetRadius * (1 + elevation);
     }
 }

@@ -13,6 +13,7 @@ public class Planet : MonoBehaviour
     MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
     ShapeGenerator shapeGenerator;
+    MeshWelder welder;
 
     public ShapeSettings shapeSettings;
     public ColourSettings colourSettings;
@@ -35,6 +36,8 @@ public class Planet : MonoBehaviour
     void Initialize()
     {
         shapeGenerator = new ShapeGenerator(shapeSettings);
+
+        welder = new MeshWelder();
 
         if (meshFilters == null || meshFilters.Length == 0) // only need to create mesh filters if array doesn't exist or is empty (no double ups).
         {
@@ -93,6 +96,7 @@ public class Planet : MonoBehaviour
     {
         foreach (TerrainFace face in terrainFaces)
         {
+            face.meshWelder = welder;
             face.ConstructMesh();
         }
     }

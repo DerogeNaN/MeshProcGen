@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class TerrainFace
 {
     Mesh mesh;
+    public MeshWelder meshWelder;
     int meshResolution;
     Vector3 localUp;
     Vector3 axisA;
     Vector3 axisB;
     ShapeGenerator shapeGenerator;
+
+    Vector3[] edgeVerts;
 
     public TerrainFace(Mesh mesh, int meshResolution, Vector3 localUp, ShapeGenerator shapeGenerator)
     {
@@ -20,6 +25,8 @@ public class TerrainFace
 
         axisA = new Vector3(localUp.y, localUp.z, localUp.x);
         axisB = Vector3.Cross(localUp, axisA);
+
+        edgeVerts = new Vector3[(meshResolution - 1) * 4];
     }
 
     public void ConstructMesh()
@@ -38,6 +45,12 @@ public class TerrainFace
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
                 verticies[i] = shapeGenerator.CalcPointOnPlanet(pointOnUnitSphere);
 
+                if (x == 0 || y == 0 || x == meshResolution - 1 || y == meshResolution - 1)
+                {
+                    CreateSphereAtPoint(verticies[i]);
+                    CreateEdgeArray(verticies[i]);
+                }
+
                 if (x != meshResolution - 1 && y != meshResolution -1)
                 {
                     triangles[triIndex] = i;
@@ -52,9 +65,42 @@ public class TerrainFace
                 i++;
             }
         }
+
+        PopulateMeshWelder();
+
         mesh.Clear();
         mesh.vertices = verticies;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
+    }
+
+    void CreateSphereAtPoint(Vector3 point)
+    {
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = point;
+        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) / meshResolution;
+    }
+
+    void CreateEdgeArray(Vector3 vertToAdd)
+    {
+        for (int i = 0; i < edgeVerts.Length; i++)
+        {
+            if (edgeVerts[i] == Vector3.zero)
+            {
+                edgeVerts[i] = vertToAdd;
+                break;
+            }
+        }
+    }
+    void PopulateMeshWelder()
+    {
+        for (int i = 0; i < meshWelder.edgeVertArrays.Length; i++) 
+        {
+            if (meshWelder.edgeVertArrays[i] == null)
+            {
+                meshWelder.edgeVertArrays[i] = edgeVerts;
+                break;
+            }
+        }
     }
 }
