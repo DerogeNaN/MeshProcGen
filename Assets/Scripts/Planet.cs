@@ -13,7 +13,7 @@ public class Planet : MonoBehaviour
     MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
     ShapeGenerator shapeGenerator;
-    MeshWelder welder;
+    public MeshWelder welder;
 
     public ShapeSettings shapeSettings;
     public ColourSettings colourSettings;

@@ -55,6 +55,11 @@ public class PlanetEditor : Editor
         {
             planet.GeneratePlanet();
         }
+
+        if (GUILayout.Button("WeldEdges!"))
+        {
+            //combine meshes here.
+        }
             
         DrawSettingsEditor(planet.colourSettings, planet.OnColourUpdate, ref planet.colourSettingsDropDown, ref colourEditor);
         DrawSettingsEditor(planet.shapeSettings, planet.OnShapeUpdate, ref planet.shapeSettingsDropDown, ref shapeEditor);

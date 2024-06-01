@@ -7,8 +7,5 @@ public class MeshWelder
 {
     public Vector3[][] edgeVertArrays = new Vector3[6][];
 
-    void WeldPoints()
-    {
-        
-    }
+    //welding edge verts logic was going to go here. Decided to utilize Unity's Mesh.CombineMeshes 01/06/24.
 }
