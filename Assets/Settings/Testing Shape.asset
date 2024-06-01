@@ -20,10 +20,10 @@ MonoBehaviour:
     firstLayerShouldMask: 0
     noiseSettings:
       noiseType: 0
-      strength: 0
+      strength: 1
       roughness: 0
-      baseRoughness: 1
+      baseRoughness: 0.96
       persistance: 0
       minValue: 0
-      noiseLayers: 1
+      noiseLayers: 2
       origin: {x: 0, y: 0, z: 0}

@@ -108,4 +108,28 @@ public class Planet : MonoBehaviour
             meshfilter.GetComponent<MeshRenderer>().sharedMaterial.color = colourSettings.planetColour;
         }
     }
+
+    public void CombineMeshes()
+    {
+        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+
+        int i = 0;
+        while (i < meshFilters.Length)
+        {
+            combine[i].mesh = meshFilters[i].sharedMesh;
+            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            meshFilters[i].gameObject.SetActive(false);
+
+            i++;
+        }
+
+        Mesh mesh = new Mesh();
+        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+        mesh.CombineMeshes(combine);
+        transform.GetComponent<MeshFilter>().sharedMesh = mesh;
+        transform.gameObject.SetActive(true);
+
+        mesh.RecalculateNormals();
+    }
 }
