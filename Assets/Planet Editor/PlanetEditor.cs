@@ -56,9 +56,9 @@ public class PlanetEditor : Editor
             planet.GeneratePlanet();
         }
 
-        if (GUILayout.Button("WeldEdges!"))
+        if (GUILayout.Button("Recalculate Edge Normals"))
         {
-            planet.CombineMeshes();
+            planet.RecalculateEdgeNormals();
         }
             
         DrawSettingsEditor(planet.colourSettings, planet.OnColourUpdate, ref planet.colourSettingsDropDown, ref colourEditor);

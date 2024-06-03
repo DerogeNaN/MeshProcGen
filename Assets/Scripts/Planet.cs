@@ -109,27 +109,20 @@ public class Planet : MonoBehaviour
         }
     }
 
-    public void CombineMeshes()
+    public void RecalculateEdgeNormals()
     {
-        MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
-        CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+        List<int> matchedIndices = new List<int>();
 
-        int i = 0;
-        while (i < meshFilters.Length)
+        for (int i = 0; i < welder.edgeVertArrays.Length; i++)
         {
-            combine[i].mesh = meshFilters[i].sharedMesh;
-            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-            meshFilters[i].gameObject.SetActive(false);
-
-            i++;
+            for (int j = 0; j < welder.edgeVertArrays.Length; j++)
+            {
+                if (welder.CheckMatch(welder.edgeVertArrays[i][j], welder.edgeVertArrays[i][j]))
+                {
+                    matchedIndices.Add(j);
+                }
+                else continue;
+            }
         }
-
-        Mesh mesh = new Mesh();
-        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-        mesh.CombineMeshes(combine);
-        transform.GetComponent<MeshFilter>().sharedMesh = mesh;
-        transform.gameObject.SetActive(true);
-
-        mesh.RecalculateNormals();
     }
 }

@@ -13,9 +13,9 @@ public static class NoiseFactory
     {
         switch (noiseSettings.noiseType)
         {
-            case NoiseSettings.NoiseType.Simple: 
+            case NoiseType.Simple: 
                 return new SimpleNoiseFilter(noiseSettings);
-            case NoiseSettings.NoiseType.Inverse: 
+            case NoiseType.Inverse: 
                 return new InverseNoiseFilter(noiseSettings);
             default: return null;
         }

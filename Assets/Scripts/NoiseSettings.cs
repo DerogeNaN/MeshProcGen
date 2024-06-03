@@ -5,11 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class NoiseSettings
 {
-    public enum NoiseType
-    {
-        Simple,
-        Inverse
-    }
     public NoiseType noiseType;
     
     public float strength = 1;
@@ -21,4 +16,10 @@ public class NoiseSettings
     [Range(1, 8)] public int noiseLayers = 1;
 
     public Vector3 origin;
+}
+
+public enum NoiseType
+{
+    Simple,
+    Inverse
 }
