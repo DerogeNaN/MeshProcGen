@@ -10,14 +10,13 @@ using UnityEngine.UIElements;
 public class TerrainFace
 {
     Mesh mesh;
-    public MeshWelder meshWelder;
     int meshResolution;
     Vector3 localUp;
     Vector3 axisA;
     Vector3 axisB;
     ShapeGenerator shapeGenerator;
 
-    Vector3[] edgeVerts;
+    public Vector3[] edgeVerts;
 
     public TerrainFace(Mesh mesh, int meshResolution, Vector3 localUp, ShapeGenerator shapeGenerator)
     {
@@ -48,10 +47,10 @@ public class TerrainFace
                 Vector3 pointOnUnitSphere = pointOnUnitCube.normalized;
                 verticies[i] = shapeGenerator.CalcPointOnPlanet(pointOnUnitSphere);
 
-                if (x == 0 || y == 0 || x == meshResolution - 1 || y == meshResolution - 1)
-                {
-                    CreateEdgeArray(verticies[i]);
-                }
+                //if (x == 0 || y == 0 || x == meshResolution - 1 || y == meshResolution - 1)
+                //{
+                //    CreateEdgeArray(verticies[i]);
+                //}
 
                 if (x != meshResolution - 1 && y != meshResolution -1)
                 {
@@ -68,7 +67,7 @@ public class TerrainFace
             }
         }
 
-        PopulateMeshWelder();
+        //PopulateMeshWelder();
 
         mesh.Clear();
         mesh.vertices = verticies;
@@ -76,74 +75,49 @@ public class TerrainFace
         mesh.RecalculateNormals();
     }
 
-    void CreateSphereAtPoint(Vector3 point)
-    {
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = point;
-        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) / meshResolution;
-        sphere.gameObject.tag = "DebugSphere";
-    }
+    //void CreateSphereAtPoint(Vector3 point)
+    //{
+    //    GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+    //    sphere.transform.position = point;
+    //    sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f) / meshResolution;
+    //    sphere.gameObject.tag = "DebugSphere";
+    //}
 
-    void RemoveDebugSphere()
-    {
-        GameObject[] debugSpheres = GameObject.FindGameObjectsWithTag("DebugSphere");
-        foreach(GameObject go in debugSpheres)
-        {
-            GameObject.DestroyImmediate(go);
-        }
-    }
+    //void RemoveDebugSphere()
+    //{
+    //    GameObject[] debugSpheres = GameObject.FindGameObjectsWithTag("DebugSphere");
+    //    foreach(GameObject go in debugSpheres)
+    //    {
+    //        GameObject.DestroyImmediate(go);
+    //    }
+    //}
 
-    void CreateEdgeArray(Vector3 vertToAdd)
-    {
-        if (shapeGenerator.shapeSettings.createEdgeArray)
-        {
-            for (int i = 0; i < edgeVerts.Length; i++)
-            {
-                if (edgeVerts[i] == Vector3.zero)
-                {
-                    edgeVerts[i] = vertToAdd;
-                    CreateSphereAtPoint(vertToAdd);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < edgeVerts.Length; i++)
-            {
-                if (edgeVerts[i] != Vector3.zero)
-                {
-                    
-                    edgeVerts[i] = Vector3.zero;
-                    break;
-                }
-            }
-            RemoveDebugSphere();
-        }
-    }
-    void PopulateMeshWelder()
-    {
-        if (shapeGenerator.shapeSettings.populateMeshWelderArray)
-        {
-            for (int i = 0; i < meshWelder.edgeVertArrays.Length; i++)
-            {
-                if (meshWelder.edgeVertArrays[i] == null)
-                {
-                    meshWelder.edgeVertArrays[i] = edgeVerts;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < meshWelder.edgeVertArrays.Length; i++)
-            {
-                if (meshWelder.edgeVertArrays[i] != null)
-                {
-                    meshWelder.edgeVertArrays[i] = null;
-                    break;
-                }
-            }
-        }
-    }
+    //void CreateEdgeArray(Vector3 vertToAdd)
+    //{
+    //    if (shapeGenerator.shapeSettings.createEdgeArray)
+    //    {
+    //        for (int i = 0; i < edgeVerts.Length; i++)
+    //        {
+    //            if (edgeVerts[i] == Vector3.zero)
+    //            {
+    //                edgeVerts[i] = vertToAdd;
+    //                CreateSphereAtPoint(vertToAdd);
+    //                break;
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < edgeVerts.Length; i++)
+    //        {
+    //            if (edgeVerts[i] != Vector3.zero)
+    //            {
+    //                
+    //                edgeVerts[i] = Vector3.zero;
+    //                break;
+    //            }
+    //        }
+    //        RemoveDebugSphere();
+    //    }
+    //}
 }

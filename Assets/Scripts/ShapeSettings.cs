@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ShapeSettings : ScriptableObject
 {
-    public bool createEdgeArray;
-    public bool populateMeshWelderArray;
+    //public bool createEdgeArray;
+    //public bool populateMeshWelderArray;
 
     public float planetRadius = 1.0f;
     public NoiseLayer[] noiseLayers;

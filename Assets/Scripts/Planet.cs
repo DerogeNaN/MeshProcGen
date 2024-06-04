@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +5,14 @@ public class Planet : MonoBehaviour
 {
     public bool autoUpdate = true;
 
-    [Range(2, 256)] 
+    [Range(2, 255)] 
     public int resolution = 10;
 
     [SerializeField , HideInInspector]
     MeshFilter[] meshFilters;
     TerrainFace[] terrainFaces;
     ShapeGenerator shapeGenerator;
-    public MeshWelder welder;
+    //public MeshWelder welder;
 
     public ShapeSettings shapeSettings;
     public ColourSettings colourSettings;
@@ -23,10 +22,10 @@ public class Planet : MonoBehaviour
 
     private void BuildMesh()
     {
-        GeneratePlanet(); // need to make sure that meshes aren't initialized when they already exist. See comments below.
+        GeneratePlanet();   //need to make sure that meshes aren't initialized when they already exist. See comments below.
     }
 
-#if UNITY_EDITOR        //this supreses
+#if UNITY_EDITOR            //this removes a silly unity warning.
     private void OnValidate()
     {
         UnityEditor.EditorApplication.delayCall += BuildMesh;
@@ -37,7 +36,7 @@ public class Planet : MonoBehaviour
     {
         shapeGenerator = new ShapeGenerator(shapeSettings);
 
-        welder = new MeshWelder();
+        //welder = new MeshWelder(resolution);
 
         if (meshFilters == null || meshFilters.Length == 0) // only need to create mesh filters if array doesn't exist or is empty (no double ups).
         {
@@ -96,7 +95,7 @@ public class Planet : MonoBehaviour
     {
         foreach (TerrainFace face in terrainFaces)
         {
-            face.meshWelder = welder;
+            //PopulateMeshWelder();
             face.ConstructMesh();
         }
     }
@@ -109,20 +108,52 @@ public class Planet : MonoBehaviour
         }
     }
 
-    public void RecalculateEdgeNormals()
-    {
-        List<int> matchedIndices = new List<int>();
+    //public void RecalculateEdgeNormals()
+    //{
+    //    List<int> matchedIndices = new List<int>();
+    //
+    //    for (int i = 0; i < welder.edgeVertArray.Length; i++)
+    //    {
+    //        for (int j = 0; j < welder.edgeVertArray.Length; j++)
+    //        {
+    //            if (welder.CheckMatch(welder.edgeVertArray[j], welder.edgeVertArray[i]))
+    //            {
+    //                matchedIndices.Add(j);
+    //            }
+    //            else continue;
+    //        }
+    //    }
+    //}
 
-        for (int i = 0; i < welder.edgeVertArrays.Length; i++)
-        {
-            for (int j = 0; j < welder.edgeVertArrays.Length; j++)
-            {
-                if (welder.CheckMatch(welder.edgeVertArrays[i][j], welder.edgeVertArrays[i][j]))
-                {
-                    matchedIndices.Add(j);
-                }
-                else continue;
-            }
-        }
-    }
+    //void PopulateMeshWelder(TerrainFace curFace)
+    //{
+    //    if (shapeGenerator.shapeSettings.populateMeshWelderArray)
+    //    {
+    //        for (int i = 0; i < welder.edgeVertArray.Length; i++)
+    //        {
+    //            for (int j = 0; j < curFace.edgeVerts.Length; j++)
+    //            {
+    //                if (welder.edgeVertArray[i] == Vector3.zero)
+    //                {
+    //                    welder.edgeVertArray[i] = curFace.edgeVerts[j];
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        for (int i = 0; i < welder.edgeVertArray.Length; i++)
+    //        {
+    //            for (int j = 0; j < curFace.edgeVerts.Length; j++)
+    //            {
+    //                if (welder.edgeVertArray[i] != Vector3.zero)
+    //                {
+    //                    welder.edgeVertArray[i] = curFace.edgeVerts[j];
+    //                    break;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 }

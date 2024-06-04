@@ -56,10 +56,10 @@ public class PlanetEditor : Editor
             planet.GeneratePlanet();
         }
 
-        if (GUILayout.Button("Recalculate Edge Normals"))
-        {
-            planet.RecalculateEdgeNormals();
-        }
+        //if (GUILayout.Button("Recalculate Edge Normals"))
+        //{
+        //    planet.RecalculateEdgeNormals();
+        //}
             
         DrawSettingsEditor(planet.colourSettings, planet.OnColourUpdate, ref planet.colourSettingsDropDown, ref colourEditor);
         DrawSettingsEditor(planet.shapeSettings, planet.OnShapeUpdate, ref planet.shapeSettingsDropDown, ref shapeEditor);
