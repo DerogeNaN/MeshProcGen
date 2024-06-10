@@ -9,7 +9,7 @@ public class ShapeSettings : ScriptableObject
     //public bool populateMeshWelderArray;
 
     public float planetRadius = 1.0f;
-    public NoiseLayer[] noiseLayers;
+    public NoiseLayer[] noiseFilters;
 
     [System.Serializable]
     public class NoiseLayer

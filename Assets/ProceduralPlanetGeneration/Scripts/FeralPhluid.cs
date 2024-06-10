@@ -9,7 +9,7 @@ public class FeralPhluid : MonoBehaviour
 
     void Update()
     {
-        planet.shapeSettings.noiseLayers[0].noiseSettings.origin += velocity * Time.deltaTime;
+        planet.shapeSettings.noiseFilters[0].noiseSettings.origin += velocity * Time.deltaTime;
         planet.GeneratePlanet();
     }
 }

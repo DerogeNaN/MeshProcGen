@@ -9,10 +9,10 @@ public class ShapeGenerator
     public ShapeGenerator(ShapeSettings shapeSettings)
     {
         this.shapeSettings = shapeSettings;
-        noiseFilters = new AbstractNoiseFilter[shapeSettings.noiseLayers.Length];
+        noiseFilters = new AbstractNoiseFilter[shapeSettings.noiseFilters.Length];
         for (int i = 0; i < noiseFilters.Length; i++)
         {
-            noiseFilters[i] = NoiseFactory.CreateNoiseFilter(shapeSettings.noiseLayers[i].noiseSettings);
+            noiseFilters[i] = NoiseFactory.CreateNoiseFilter(shapeSettings.noiseFilters[i].noiseSettings);
         }
     }
 
@@ -24,13 +24,13 @@ public class ShapeGenerator
         if (noiseFilters.Length > 0) 
         {
             firstLayerValue = noiseFilters[0].Evaluate(pointOnUnitSphere);
-            if (shapeSettings.noiseLayers[0].enabled) elevation = firstLayerValue;
+            if (shapeSettings.noiseFilters[0].enabled) elevation = firstLayerValue;
         }
 
         for (int i = 1; i < noiseFilters.Length; i++)
         {
-            float mask = (shapeSettings.noiseLayers[i].firstLayerShouldMask) ? firstLayerValue : 1;
-            if (shapeSettings.noiseLayers[i].enabled) elevation += noiseFilters[i].Evaluate(pointOnUnitSphere) * mask;
+            float mask = (shapeSettings.noiseFilters[i].firstLayerShouldMask) ? firstLayerValue : 1;
+            if (shapeSettings.noiseFilters[i].enabled) elevation += noiseFilters[i].Evaluate(pointOnUnitSphere) * mask;
         }
         return pointOnUnitSphere * shapeSettings.planetRadius * (1 + elevation);
     }

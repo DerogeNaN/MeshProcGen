@@ -23,7 +23,7 @@ public class SimpleNoiseFilter : AbstractNoiseFilter
             float v = noise.Evaluate(point * frequency + settings.origin);
             noiseValue += ((v + 1) * 0.5f) * amplitude;
             frequency *= settings.roughness;
-            amplitude *= settings.persistance;
+            amplitude *= settings.persistence;
         }
 
         noiseValue = Mathf.Max(0, noiseValue - settings.minValue);
