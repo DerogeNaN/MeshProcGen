@@ -10,18 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488a7daebb6b83d4e9d0b6300e94b1af, type: 3}
-  m_Name: Testing Shape
+  m_Name: Planet Shape
   m_EditorClassIdentifier: 
-  planetRadius: 5
-  noiseLayers:
+  planetRadius: 2.5
+  noiseFilters:
+  - enabled: 1
+    firstLayerShouldMask: 0
+    noiseSettings:
+      noiseType: 1
+      strength: 0.15
+      roughness: 2.5
+      baseRoughness: 1.25
+      persistence: 0.25
+      minValue: 0.59
+      noiseLayers: 1
+      origin: {x: 0, y: 0, z: 0}
   - enabled: 1
     firstLayerShouldMask: 1
     noiseSettings:
       noiseType: 0
-      strength: 0.2
-      roughness: 0
-      baseRoughness: 0.96
-      persistance: 0
+      strength: 0.5
+      roughness: 5
+      baseRoughness: 3.5
+      persistence: 0.25
       minValue: 0
-      noiseLayers: 2
+      noiseLayers: 3
       origin: {x: 0, y: 0, z: 0}
